@@ -7,11 +7,13 @@ public class Vehicle {
     private final String code;
     private final LatLon coordinates;
     private final Double bearing;
+    private final String vehicleId;
 
-    public Vehicle(String code, LatLon coordinates, Double bearing) {
+    public Vehicle(String code, LatLon coordinates, Double bearing, String vehicleId) {
         this.code = code;
         this.coordinates = coordinates;
         this.bearing = bearing;
+        this.vehicleId = vehicleId;
     }
 
     public String code() {
@@ -24,6 +26,10 @@ public class Vehicle {
 
     public Double bearing() {
         return bearing;
+    }
+
+    public String vehicleId() {
+        return vehicleId;
     }
 
     public String type() {
