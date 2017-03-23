@@ -49,6 +49,7 @@
                     <targetTests>
                         <param>sporamonitor.hslapi.*</param>
                     </targetTests>
+                    <reportsDirectory>../dokumentaatio/pit/</reportsDirectory>
                 </configuration>
             </plugin>
             <plugin>
