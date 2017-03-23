@@ -1,3 +1,5 @@
+# Aiheen kuvaus ja rakenne
+
 **Aihe**: Sovellus HSL:n raitiovaunujen näyttämiseen kartalla
 
 Toteutetaan sovellus, jonka avulla voidaan seurata HSL:n raitiovaunujen liikennettä Helsingin seudulla.
@@ -15,4 +17,7 @@ ja jossa
     * raitiovaunujen reitit näkyvät linjoina kartalla
 * Suodatinnäkymä, jossa käyttäjä voi
     * valita, mitkä HSL:n raitiovaunureitit näkyvät kartalla
-    
+
+## Luokkakaavio
+
+![Luokkakaavio](luokkakaavio.png)
