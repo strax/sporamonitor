@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.metsci.ext.com.kitfox.svg:svg-salamander:0.1.19">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/metsci/ext/com/kitfox/svg/svg-salamander/0.1.19/svg-salamander-0.1.19.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/metsci/ext/com/kitfox/svg/svg-salamander/0.1.19/svg-salamander-0.1.19-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/metsci/ext/com/kitfox/svg/svg-salamander/0.1.19/svg-salamander-0.1.19-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

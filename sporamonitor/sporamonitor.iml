@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -17,5 +17,12 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.9" level="project" />
+    <orderEntry type="library" name="Maven: com.metsci.ext.com.kitfox.svg:svg-salamander:0.1.19" level="project" />
+    <orderEntry type="library" name="Maven: org.mapsforge:mapsforge-map-awt:0.8.0" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.kxml:kxml2:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mapsforge:mapsforge-themes:0.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mapsforge:mapsforge-map-reader:0.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mapsforge:mapsforge-map:0.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mapsforge:mapsforge-core:0.8.0" level="project" />
   </component>
 </module>
