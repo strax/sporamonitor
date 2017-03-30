@@ -7,3 +7,7 @@ A Java application that shows [HSL](https://www.hsl.fi/) trams and their routes 
 [Project description and class diagram](dokumentaatio/aiheenKuvausJaRakenne.md)
 
 [Hours tracked](dokumentaatio/tuntikirjanpito.md)
+
+[Checkstyle results](https://htmlpreview.github.io/?https://github.com/strax/sporamonitor/blob/master/dokumentaatio/checkstyle/checkstyle.html)
+
+[Mutation test results](https://htmlpreview.github.io?https://github.com/strax/sporamonitor/blob/master/dokumentaatio/pit/index.html)
