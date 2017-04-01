@@ -12,6 +12,9 @@ import java.util.concurrent.CompletableFuture;
 
 import static org.asynchttpclient.Dsl.*;
 
+/**
+ * An API client to HSL's Live API (http://dev.hsl.fi/)
+ */
 public class HSLLiveClient {
     private static final String ENDPOINT_URI = "http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL";
 
