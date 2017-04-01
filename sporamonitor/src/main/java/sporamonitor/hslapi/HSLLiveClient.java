@@ -15,6 +15,11 @@ import static org.asynchttpclient.Dsl.*;
 public class HSLLiveClient {
     private static final String ENDPOINT_URI = "http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL";
 
+    /**
+     * Returns the list of vehicles currently in transit by HSL
+     * @returns a future containing a list of vehicles
+     * @throws IOException
+     */
     public CompletableFuture<List<Vehicle>> vehicles() throws IOException {
         AsyncHttpClient asyncHttpClient = asyncHttpClient();
         return asyncHttpClient
