@@ -1,10 +1,16 @@
 package sporamonitor.hslapi;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Represents latitude-longitude coordinates
  */
 public class LatLon {
-    private final double lat, lon;
+    @SerializedName("Latitude")
+    private final double lat;
+
+    @SerializedName("Longitude")
+    private final double lon;
 
     /**
      * Creates a new latitude-longitude pair
