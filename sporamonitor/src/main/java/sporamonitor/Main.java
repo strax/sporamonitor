@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        HSLLiveClient client = new HSLLiveClient();
-        List<Vehicle> vehicles = client.vehicles().get();
+        new RootController();
     }
 }
