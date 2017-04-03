@@ -1,7 +1,10 @@
 package sporamonitor.ui;
 
 import com.sun.awt.AWTUtilities;
-import org.mapsforge.core.graphics.GraphicFactory;
+import java.util.List;
+import org.mapsforge.core.graphics.*;
+import org.mapsforge.core.graphics.Color;
+import org.mapsforge.core.graphics.Paint;
 import org.mapsforge.core.model.BoundingBox;
 import org.mapsforge.core.model.LatLong;
 import org.mapsforge.core.model.MapPosition;
@@ -10,6 +13,9 @@ import org.mapsforge.map.awt.graphics.AwtGraphicFactory;
 import org.mapsforge.map.awt.util.AwtUtil;
 import org.mapsforge.map.awt.view.MapView;
 import org.mapsforge.map.controller.FrameBufferController;
+import org.mapsforge.map.layer.GroupLayer;
+import org.mapsforge.map.layer.Layer;
+import org.mapsforge.map.layer.LayerManager;
 import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.debug.TileCoordinatesLayer;
@@ -23,20 +29,31 @@ import org.mapsforge.map.layer.renderer.MapWorkerPool;
 import org.mapsforge.map.model.MapViewPosition;
 import org.mapsforge.map.model.Model;
 import org.mapsforge.map.reader.ReadBuffer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sporamonitor.hslapi.HSLLiveClient;
+import sporamonitor.hslapi.Vehicle;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MapController {
-    private final MapView view;
+    private final static Logger LOGGER = LoggerFactory.getLogger(MapController.class);
+
     private final static GraphicFactory GRAPHIC_FACTORY = AwtGraphicFactory.INSTANCE;
     private final static LatLong HELSINKI_COORDINATES = new LatLong(60.1699, 24.9384);
     private final static byte DEFAULT_ZOOM_LEVEL = 16;
     private final static byte MIN_ZOOM_LEVEL = 12;
+
+    private final MapView view;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 
     public MapController(Frame frame) {
         MapWorkerPool.NUMBER_OF_THREADS = 2;
@@ -73,6 +90,9 @@ public class MapController {
         TileSource tileSource = OpenStreetMapMapnik.INSTANCE;
         TileDownloadLayer tileDownloadLayer = createTileDownloadLayer(tileCache, view.getModel().mapViewPosition, tileSource);
         layers.add(tileDownloadLayer);
+        Layer pointerLayer = createMarkerLayer();
+        pointerLayer.setDisplayModel(view.getModel().displayModel);
+        layers.add(pointerLayer);
         tileDownloadLayer.start();
         view.setZoomLevelMax(tileSource.getZoomLevelMax());
         view.setZoomLevelMin(MIN_ZOOM_LEVEL);
@@ -89,5 +109,25 @@ public class MapController {
                 return true;
             }
         };
+    }
+
+    private Layer createMarkerLayer() {
+        Paint paint = GRAPHIC_FACTORY.createPaint();
+        paint.setColor(Color.RED);
+        paint.setStrokeWidth(3.0f);
+        paint.setStyle(Style.FILL);
+
+        HSLLiveClient client = new HSLLiveClient();
+        GroupLayer groupLayer = new GroupLayer();
+        try {
+            client.vehicles().get().stream().filter(v -> v.type().equals(Vehicle.TYPE_TRAM)).forEach(vehicle -> {
+                LatLong coordinates = new LatLong(vehicle.coordinates().lat(), vehicle.coordinates().lon());
+                VehicleMarker marker = new VehicleMarker(coordinates, vehicle.displayName(), GRAPHIC_FACTORY);
+                groupLayer.layers.add(marker);
+            });
+        } catch (Exception e) {
+            LOGGER.error("Could not fetch vehicle positions", e);
+        }
+        return groupLayer;
     }
 }
