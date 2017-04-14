@@ -18,6 +18,8 @@ import static org.asynchttpclient.Dsl.*;
 public class HSLLiveClient {
     private static final String ENDPOINT_URI = "http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL";
 
+    private Gson gson;
+
     /**
      * Returns the list of vehicles currently in transit by HSL
      * @returns a future containing a list of vehicles
@@ -34,7 +36,6 @@ public class HSLLiveClient {
     }
 
     private List<Vehicle> parseSiriJson(String json) {
-        Gson gson = buildGson();
         JsonParser parser = new JsonParser();
         JsonElement container = parser.parse(json);
         JsonArray vehicleActivity = container
@@ -49,8 +50,12 @@ public class HSLLiveClient {
     }
 
     private Gson buildGson() {
+        if (gson != null) {
+            return gson;
+        }
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Vehicle.class, new VehicleDeserializer());
-        return builder.create();
+        gson = builder.create();
+        return gson;
     }
 }
