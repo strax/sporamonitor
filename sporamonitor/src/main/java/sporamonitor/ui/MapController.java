@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sporamonitor.hslapi.HSLLiveClient;
 import sporamonitor.hslapi.Vehicle;
+import sporamonitor.map.tilesource.MapboxTileSource;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -41,6 +42,7 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -56,10 +58,11 @@ public class MapController {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 
     public MapController(Frame frame) {
-        MapWorkerPool.NUMBER_OF_THREADS = 2;
+        MapWorkerPool.NUMBER_OF_THREADS = 1;
         ReadBuffer.MAXIMUM_BUFFER_SIZE = 6500000;
-        FrameBufferController.SQUARE_FRAME_BUFFER = false;
+        FrameBufferController.SQUARE_FRAME_BUFFER = true;
         view = new MapView();
+        view.getModel().frameBufferModel.setOverdrawFactor(1.0f);
         view.getMapScaleBar().setVisible(true);
         view.getFpsCounter().setVisible(true);
         BoundingBox bb = addLayers();
@@ -87,7 +90,7 @@ public class MapController {
         final BoundingBox boundingBox;
 
         view.getModel().displayModel.setFixedTileSize(256);
-        TileSource tileSource = OpenStreetMapMapnik.INSTANCE;
+        TileSource tileSource = new MapboxTileSource("pk.eyJ1Ijoic2FtaWt1a2tvbmVuMiIsImEiOiJjajExdWs1YnMwMDRhMzJwYm56dnZhdWVoIn0.AryketxtTQkdLlr8TwRyjw", "samikukkonen2", "cj11v1wl6005m2ro9pnyj8c6e");
         TileDownloadLayer tileDownloadLayer = createTileDownloadLayer(tileCache, view.getModel().mapViewPosition, tileSource);
         layers.add(tileDownloadLayer);
         Layer pointerLayer = createMarkerLayer();
@@ -112,11 +115,6 @@ public class MapController {
     }
 
     private Layer createMarkerLayer() {
-        Paint paint = GRAPHIC_FACTORY.createPaint();
-        paint.setColor(Color.RED);
-        paint.setStrokeWidth(3.0f);
-        paint.setStyle(Style.FILL);
-
         HSLLiveClient client = new HSLLiveClient();
         GroupLayer groupLayer = new GroupLayer();
         try {
