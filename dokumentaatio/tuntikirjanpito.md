@@ -7,3 +7,4 @@ Päivä | Tunnit | Kuvaus
 23.03.2017 | 2h | Luokkakaavio, PIT- ja Checkstyle -raportit, domainluokkia HSL:n APIa varten
 27.03.2017 | 4h | UI, karttakirjaston selvittämistä, Mapsforge proof-of-concept
 30.03.2017 | 2h | Javan JSON-kirjastojen vertailua, PIT, checkstyle
+20.04.2017 | 2h | Raitiovaunujen sijainnin päivitys
