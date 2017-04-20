@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017</copyright>
     <item>
-      <title>File: 7,
+      <title>File: 10,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -47,6 +47,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#sporamonitor.ui.RootView.java">sporamonitor/ui/RootView.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#sporamonitor.hslapi.VehicleDeserializer.java">sporamonitor/hslapi/VehicleDeserializer.java</a>
                 </td>
                 <td>
                   0
@@ -117,6 +131,34 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#sporamonitor.hslapi.LatLon.java">sporamonitor/hslapi/LatLon.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#sporamonitor.map.tilesource.MapboxTileSource.java">sporamonitor/map/tilesource/MapboxTileSource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#sporamonitor.ui.VehicleMarker.java">sporamonitor/ui/VehicleMarker.java</a>
                 </td>
                 <td>
                   0
