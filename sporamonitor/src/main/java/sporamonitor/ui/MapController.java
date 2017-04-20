@@ -57,6 +57,8 @@ public class MapController {
     private final MapView view;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 
+    private final HSLLiveClient client = new HSLLiveClient();
+
     public MapController(Frame frame) {
         MapWorkerPool.NUMBER_OF_THREADS = 1;
         ReadBuffer.MAXIMUM_BUFFER_SIZE = 6500000;
@@ -93,9 +95,13 @@ public class MapController {
         TileSource tileSource = new MapboxTileSource("pk.eyJ1Ijoic2FtaWt1a2tvbmVuMiIsImEiOiJjajExdWs1YnMwMDRhMzJwYm56dnZhdWVoIn0.AryketxtTQkdLlr8TwRyjw", "samikukkonen2", "cj11v1wl6005m2ro9pnyj8c6e");
         TileDownloadLayer tileDownloadLayer = createTileDownloadLayer(tileCache, view.getModel().mapViewPosition, tileSource);
         layers.add(tileDownloadLayer);
-        Layer pointerLayer = createMarkerLayer();
-        pointerLayer.setDisplayModel(view.getModel().displayModel);
-        layers.add(pointerLayer);
+
+        GroupLayer markerLayer = new GroupLayer();
+        layers.add(markerLayer);
+
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> updateMarkerLayer(markerLayer), 0, 1, TimeUnit.SECONDS);
+
         tileDownloadLayer.start();
         view.setZoomLevelMax(tileSource.getZoomLevelMax());
         view.setZoomLevelMin(MIN_ZOOM_LEVEL);
@@ -114,9 +120,8 @@ public class MapController {
         };
     }
 
-    private Layer createMarkerLayer() {
-        HSLLiveClient client = new HSLLiveClient();
-        GroupLayer groupLayer = new GroupLayer();
+    private void updateMarkerLayer(GroupLayer groupLayer) {
+        groupLayer.layers.clear();
         try {
             client.vehicles().get().stream().filter(v -> v.type().equals(Vehicle.TYPE_TRAM)).forEach(vehicle -> {
                 LatLong coordinates = new LatLong(vehicle.coordinates().lat(), vehicle.coordinates().lon());
@@ -126,6 +131,8 @@ public class MapController {
         } catch (Exception e) {
             LOGGER.error("Could not fetch vehicle positions", e);
         }
-        return groupLayer;
+        // Propagate displaymodel to new sublayers
+        groupLayer.setDisplayModel(view.getModel().displayModel);
+        groupLayer.requestRedraw();
     }
 }
