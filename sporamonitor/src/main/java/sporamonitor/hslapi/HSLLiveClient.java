@@ -3,14 +3,14 @@ package sporamonitor.hslapi;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.Dsl;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
-import static org.asynchttpclient.Dsl.*;
+import java.util.function.Supplier;
 
 /**
  * An API client to HSL's Live API (http://dev.hsl.fi/)
@@ -19,6 +19,15 @@ public class HSLLiveClient {
     private static final String ENDPOINT_URI = "http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL";
 
     private Gson gson;
+    private Supplier<AsyncHttpClient> httpClientSupplier;
+
+    public HSLLiveClient() {
+        this(Dsl::asyncHttpClient);
+    }
+
+    public HSLLiveClient(Supplier<AsyncHttpClient> httpClientSupplier) {
+        this.httpClientSupplier = httpClientSupplier;
+    }
 
     /**
      * Returns the list of vehicles currently in transit by HSL
@@ -26,7 +35,7 @@ public class HSLLiveClient {
      * @throws IOException
      */
     public CompletableFuture<List<Vehicle>> vehicles() throws IOException {
-        AsyncHttpClient asyncHttpClient = asyncHttpClient();
+        AsyncHttpClient asyncHttpClient = httpClientSupplier.get();
         return asyncHttpClient
                 .prepareGet(ENDPOINT_URI)
                 .execute()
