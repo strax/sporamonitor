@@ -54,7 +54,7 @@ public class HSLLiveClient {
                 .getAsJsonArray("VehicleMonitoringDelivery")
                 .get(0).getAsJsonObject()
                 .getAsJsonArray("VehicleActivity");
-        Type listType = new TypeToken<List<Vehicle>>(){}.getType();
+        Type listType = new TypeToken<List<Vehicle>>() { }.getType();
         return buildGson().fromJson(vehicleActivity, listType);
     }
 

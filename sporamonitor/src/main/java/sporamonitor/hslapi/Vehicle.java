@@ -64,7 +64,9 @@ public class Vehicle {
     /**
      * Returns the delay of the vehicle, if available
      */
-    public Double delay() { return delay; }
+    public Double delay() {
+        return delay;
+    }
 
     /**
      * Returns the type of the vehicle. Currently only tram vehicles are supported.
