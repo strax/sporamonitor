@@ -19,14 +19,14 @@ public class HSLLiveClient {
     private static final String ENDPOINT_URI = "http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL";
 
     private Gson gson;
-    private Supplier<AsyncHttpClient> httpClientSupplier;
+    private AsyncHttpClient httpClient;
 
     public HSLLiveClient() {
         this(Dsl::asyncHttpClient);
     }
 
     public HSLLiveClient(Supplier<AsyncHttpClient> httpClientSupplier) {
-        this.httpClientSupplier = httpClientSupplier;
+        this.httpClient = httpClientSupplier.get();
     }
 
     /**
@@ -35,8 +35,7 @@ public class HSLLiveClient {
      * @throws IOException
      */
     public CompletableFuture<List<Vehicle>> vehicles() throws IOException {
-        AsyncHttpClient asyncHttpClient = httpClientSupplier.get();
-        return asyncHttpClient
+        return httpClient
                 .prepareGet(ENDPOINT_URI)
                 .execute()
                 .toCompletableFuture()
