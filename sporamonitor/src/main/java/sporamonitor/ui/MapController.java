@@ -80,7 +80,6 @@ public class MapController {
 
     private BoundingBox addLayers() {
         Layers layers = view.getLayerManager().getLayers();
-        System.out.println(System.getProperty("java.io.tmpdir"));
 
         TileCache tileCache = AwtUtil.createTileCache(
                 view.getModel().displayModel.getTileSize(),
