@@ -7,8 +7,8 @@ import com.google.gson.annotations.SerializedName;
  * line number 9 and an unique vehicle ID.
  */
 public class Vehicle {
-    public static final String TYPE_TRAM = "100";
-    public static final String TYPE_UNKNOWN = "unknown";
+    public static final String TYPE_TRAM = "TYPE_TRAM";
+    public static final String TYPE_UNKNOWN = "TYPE_UNKNOWN";
 
     @SerializedName("LineRef")
     private final String code;
@@ -73,7 +73,7 @@ public class Vehicle {
      * @return TYPE_TRAM if the vehicle is a tram, TYPE_UNKNOWN otherwise
      */
     public String type() {
-        if (code.startsWith(TYPE_TRAM)) {
+        if (code.matches("^10(0|10).*")) {
             return TYPE_TRAM;
         } else {
             return TYPE_UNKNOWN;
@@ -85,7 +85,7 @@ public class Vehicle {
      */
     public String displayName() {
         if (type().equals(TYPE_TRAM)) {
-            return code.substring(3);
+            return code.replaceFirst("^.0*", "");
         } else {
             return code;
         }
