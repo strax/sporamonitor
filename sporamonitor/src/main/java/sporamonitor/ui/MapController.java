@@ -61,7 +61,7 @@ public class MapController {
         view = new MapView();
         view.getModel().frameBufferModel.setOverdrawFactor(1.0f);
         view.getMapScaleBar().setVisible(true);
-        view.getFpsCounter().setVisible(true);
+        view.getFpsCounter().setVisible(false);
         BoundingBox bb = addLayers();
 
         frame.add(view);
