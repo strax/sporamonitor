@@ -23,11 +23,8 @@ import org.mapsforge.map.layer.debug.TileGridLayer;
 import org.mapsforge.map.layer.download.TileDownloadLayer;
 import org.mapsforge.map.layer.download.tilesource.OpenStreetMapMapnik;
 import org.mapsforge.map.layer.download.tilesource.TileSource;
-import org.mapsforge.map.layer.overlay.*;
-import org.mapsforge.map.layer.overlay.Polygon;
 import org.mapsforge.map.layer.renderer.MapWorkerPool;
 import org.mapsforge.map.model.MapViewPosition;
-import org.mapsforge.map.model.Model;
 import org.mapsforge.map.reader.ReadBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +35,9 @@ import sporamonitor.map.tilesource.MapboxTileSource;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -99,14 +94,16 @@ public class MapController {
         layers.add(markerLayer);
 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> updateMarkerLayer(markerLayer), 0, 1, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(() -> {
+            synchronized (layers) {
+                updateMarkerLayer(markerLayer);
+            }
+        }, 0, 1, TimeUnit.SECONDS);
 
         tileDownloadLayer.start();
         view.setZoomLevelMax(tileSource.getZoomLevelMax());
         view.setZoomLevelMin(MIN_ZOOM_LEVEL);
         boundingBox = new BoundingBox(LatLongUtils.LATITUDE_MIN, LatLongUtils.LONGITUDE_MIN, LatLongUtils.LATITUDE_MAX, LatLongUtils.LONGITUDE_MAX);
-        layers.add(new TileGridLayer(GRAPHIC_FACTORY, view.getModel().displayModel));
-        layers.add(new TileCoordinatesLayer(GRAPHIC_FACTORY, view.getModel().displayModel));
 
         return boundingBox;
     }
