@@ -98,7 +98,7 @@ public class MapController {
             synchronized (layers) {
                 updateMarkerLayer(markerLayer);
             }
-        }, 0, 1, TimeUnit.SECONDS);
+        }, 0, 500, TimeUnit.MILLISECONDS);
 
         tileDownloadLayer.start();
         view.setZoomLevelMax(tileSource.getZoomLevelMax());
