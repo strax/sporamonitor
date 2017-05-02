@@ -6,6 +6,9 @@ import org.mapsforge.map.layer.download.tilesource.AbstractTileSource;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Integrates <a href="https://mapbox.com">Mapbox</a> raster maps to Mapsforge maps.
+ */
 public class MapboxTileSource extends AbstractTileSource {
 
     private static final String[] HOSTNAMES = new String[] { "api.mapbox.com" };

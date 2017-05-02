@@ -7,6 +7,9 @@ import com.google.gson.JsonObject;
 
 import java.lang.reflect.Type;
 
+/**
+ * A GSON deserialization adapter for transforming JSON objects to {@link Vehicle} objects.
+ */
 class VehicleDeserializer implements JsonDeserializer<Vehicle> {
     public Vehicle deserialize(JsonElement element, Type typeOfSrc, JsonDeserializationContext context) {
         JsonObject object = element.getAsJsonObject().getAsJsonObject("MonitoredVehicleJourney");
