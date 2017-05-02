@@ -28,12 +28,7 @@ public class VehicleRepository implements Subject<Collection<Vehicle>> {
     public void startPolling() {
         scheduler.scheduleAtFixedRate(this::fetchVehicles, 0, 500, TimeUnit.MILLISECONDS);
     }
-
-    @Override
-    public void finalize() {
-        scheduler.shutdown();
-    }
-
+    
     /**
      * @return a read-only collection of {@link Vehicle} objects
      */
