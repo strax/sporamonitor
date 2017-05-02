@@ -28,6 +28,7 @@ import org.mapsforge.map.model.MapViewPosition;
 import org.mapsforge.map.reader.ReadBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sporamonitor.domain.VehicleRepository;
 import sporamonitor.hslapi.HSLLiveClient;
 import sporamonitor.hslapi.Vehicle;
 import sporamonitor.map.tilesource.MapboxTileSource;
@@ -52,9 +53,11 @@ public class MapController {
     private final MapView view;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 
-    private final HSLLiveClient client = new HSLLiveClient();
+    private final VehicleRepository vehicleRepository;
 
-    public MapController(Frame frame) {
+    public MapController(Frame frame, VehicleRepository vehicleRepository) {
+        this.vehicleRepository = vehicleRepository;
+
         MapWorkerPool.NUMBER_OF_THREADS = 1;
         ReadBuffer.MAXIMUM_BUFFER_SIZE = 6500000;
         FrameBufferController.SQUARE_FRAME_BUFFER = true;
@@ -93,12 +96,13 @@ public class MapController {
         GroupLayer markerLayer = new GroupLayer();
         layers.add(markerLayer);
 
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> {
+        vehicleRepository.subscribe(vehicles -> {
+            // Synchronize access to layers to prevent race conditions with the main thread on startup
             synchronized (layers) {
                 updateMarkerLayer(markerLayer);
             }
-        }, 0, 500, TimeUnit.MILLISECONDS);
+        });
+        this.updateMarkerLayer(markerLayer);
 
         tileDownloadLayer.start();
         view.setZoomLevelMax(tileSource.getZoomLevelMax());
@@ -117,16 +121,13 @@ public class MapController {
     }
 
     private void updateMarkerLayer(GroupLayer groupLayer) {
+        LOGGER.info("Redrawing map");
         groupLayer.layers.clear();
-        try {
-            client.vehicles().get().stream().filter(v -> v.type().equals(Vehicle.TYPE_TRAM)).forEach(vehicle -> {
-                LatLong coordinates = new LatLong(vehicle.coordinates().lat(), vehicle.coordinates().lon());
-                VehicleMarker marker = new VehicleMarker(coordinates, vehicle.displayName(), GRAPHIC_FACTORY);
-                groupLayer.layers.add(marker);
-            });
-        } catch (Exception e) {
-            LOGGER.error("Could not fetch vehicle positions", e);
-        }
+        vehicleRepository.vehicles().forEach(vehicle -> {
+            LatLong coordinates = new LatLong(vehicle.coordinates().lat(), vehicle.coordinates().lon());
+            VehicleMarker marker = new VehicleMarker(coordinates, vehicle.displayName(), GRAPHIC_FACTORY);
+            groupLayer.layers.add(marker);
+        });
         // Propagate displaymodel to new sublayers
         groupLayer.setDisplayModel(view.getModel().displayModel);
         groupLayer.requestRedraw();

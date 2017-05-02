@@ -1,5 +1,7 @@
 package sporamonitor.ui;
 
+import sporamonitor.domain.VehicleRepository;
+
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -10,8 +12,9 @@ public class RootController {
 
     public RootController() {
         Frame frame = new Frame("Sporamonitor");
+        VehicleRepository vehicleRepository = new VehicleRepository();
 
-        this.mapController = new MapController(frame);
+        this.mapController = new MapController(frame, vehicleRepository);
 
         frame.pack();
         frame.setSize(800, 600);
@@ -30,5 +33,7 @@ public class RootController {
                 System.exit(0);
             }
         });
+
+        vehicleRepository.startPolling();
     }
 }
