@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 
 import java.lang.reflect.Type;
 
-public class VehicleDeserializer implements JsonDeserializer<Vehicle> {
+class VehicleDeserializer implements JsonDeserializer<Vehicle> {
     public Vehicle deserialize(JsonElement element, Type typeOfSrc, JsonDeserializationContext context) {
         JsonObject object = element.getAsJsonObject().getAsJsonObject("MonitoredVehicleJourney");
         String lineRef = object.getAsJsonObject("LineRef").getAsJsonPrimitive("value").getAsString();
