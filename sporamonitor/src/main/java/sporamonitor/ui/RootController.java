@@ -1,6 +1,7 @@
 package sporamonitor.ui;
 
 import sporamonitor.domain.VehicleRepository;
+import sporamonitor.hslapi.HSLLiveClient;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -12,7 +13,7 @@ public class RootController {
 
     public RootController() {
         Frame frame = new Frame("Sporamonitor");
-        VehicleRepository vehicleRepository = new VehicleRepository();
+        VehicleRepository vehicleRepository = new VehicleRepository(new HSLLiveClient());
 
         this.mapController = new MapController(frame, vehicleRepository);
 

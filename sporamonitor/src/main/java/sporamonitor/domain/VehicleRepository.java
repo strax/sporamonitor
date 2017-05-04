@@ -18,17 +18,21 @@ public class VehicleRepository implements Subject<Collection<Vehicle>> {
 
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final List<Vehicle> vehicles = Collections.synchronizedList(new ArrayList<>());
-    private final HSLLiveClient apiClient = new HSLLiveClient();
+    private final HSLLiveClient apiClient;
     private final List<Consumer<Collection<Vehicle>>> observers = new LinkedList<>();
     private final ExecutorService observerTaskExecutorService = ForkJoinPool.commonPool();
+
+    public VehicleRepository(HSLLiveClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
     /**
      * Starts to poll for new vehicles periodically.
      */
     public void startPolling() {
-        scheduler.scheduleAtFixedRate(this::fetchVehicles, 0, 500, TimeUnit.MILLISECONDS);
+        scheduler.scheduleWithFixedDelay(this::fetchVehicles, 0, 500, TimeUnit.MILLISECONDS);
     }
-    
+
     /**
      * @return a read-only collection of {@link Vehicle} objects
      */

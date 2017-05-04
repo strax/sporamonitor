@@ -37,5 +37,9 @@
     <orderEntry type="library" name="Maven: org.mapsforge:mapsforge-map-reader:0.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.mapsforge:mapsforge-map:0.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.mapsforge:mapsforge-core:0.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mockito:mockito-core:2.7.22" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: net.bytebuddy:byte-buddy:1.6.11" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: net.bytebuddy:byte-buddy-agent:1.6.11" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.objenesis:objenesis:2.5" level="project" />
   </component>
 </module>
