@@ -123,7 +123,7 @@ public class MapController {
     private void updateMarkerLayer(GroupLayer groupLayer) {
         LOGGER.info("Redrawing map");
         groupLayer.layers.clear();
-        vehicleRepository.vehicles().forEach(vehicle -> {
+        vehicleRepository.vehicles().stream().filter(vehicle -> vehicle.type().equals(Vehicle.TYPE_TRAM)).forEach(vehicle -> {
             LatLong coordinates = new LatLong(vehicle.coordinates().lat(), vehicle.coordinates().lon());
             VehicleMarker marker = new VehicleMarker(coordinates, vehicle.displayName(), GRAPHIC_FACTORY);
             groupLayer.layers.add(marker);
