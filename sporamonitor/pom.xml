@@ -101,9 +101,11 @@
                 <configuration>
                     <targetClasses>
                         <param>sporamonitor.hslapi.*</param>
+                        <param>sporamonitor.domain.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>sporamonitor.hslapi.*</param>
+                        <param>sporamonitor.domain.*</param>
                     </targetTests>
                 </configuration>
             </plugin>
