@@ -14,9 +14,6 @@ Sovellus koostuu karttanäkymästä, joka näyttää raitiovaunujen sijainnit el
     * suurennustasoa voidaan muuttaa
 ja jossa
     * raitiovaunujen reaaliaikainen sijainti näkyy graafisena elementtinä
-    * raitiovaunujen reitit näkyvät linjoina kartalla
-* Suodatinnäkymä, jossa käyttäjä voi
-    * valita, mitkä HSL:n raitiovaunureitit näkyvät kartalla
 
 ## Luokkakaavio
 
