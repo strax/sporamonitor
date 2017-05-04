@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 /**
- * An API client to HSL's Live API (http://dev.hsl.fi/)
+ * An API client to HSL's Live API (http://dev.hsl.fi/).
  */
 public class HSLLiveClient {
     private static final String ENDPOINT_URI = "http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL";
@@ -21,18 +21,25 @@ public class HSLLiveClient {
     private Gson gson;
     private AsyncHttpClient httpClient;
 
+    /**
+     * Creates a new HSL Live client.
+     */
     public HSLLiveClient() {
         this(Dsl::asyncHttpClient);
     }
 
+    /**
+     * Creates a new HSL Live client.
+     * @param httpClientSupplier the HTTP client object to use.
+     */
     public HSLLiveClient(Supplier<AsyncHttpClient> httpClientSupplier) {
         this.httpClient = httpClientSupplier.get();
     }
 
     /**
-     * Returns the list of vehicles currently in transit by HSL
-     * @returns a future containing a list of vehicles
-     * @throws IOException
+     * Returns the list of vehicles currently in transit by HSL.
+     * @return a future containing a list of vehicles
+     * @throws IOException if the fetch operation failed
      */
     public CompletableFuture<List<Vehicle>> vehicles() throws IOException {
         return httpClient

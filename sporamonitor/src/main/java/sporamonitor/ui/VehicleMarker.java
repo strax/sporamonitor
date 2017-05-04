@@ -7,10 +7,19 @@ import org.mapsforge.core.model.Point;
 import org.mapsforge.core.util.MercatorProjection;
 import org.mapsforge.map.layer.overlay.FixedPixelCircle;
 
+/**
+ * A map marker that represents a vehicle.
+ */
 public class VehicleMarker extends FixedPixelCircle {
     private final GraphicFactory graphicFactory;
     private String label;
 
+    /**
+     * Creates a new vehicle marker object.
+     * @param latLong the coordinates of the marker
+     * @param label the vehicle's name
+     * @param graphicFactory the graphic factory to use to draw the marker
+     */
     public VehicleMarker(LatLong latLong, String label, GraphicFactory graphicFactory) {
         super(latLong, 20f, paintFill(graphicFactory), paintStroke(graphicFactory), true);
         this.label = label;

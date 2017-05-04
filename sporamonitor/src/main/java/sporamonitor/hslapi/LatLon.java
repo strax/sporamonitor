@@ -3,7 +3,7 @@ package sporamonitor.hslapi;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents latitude-longitude coordinates
+ * Represents latitude-longitude coordinates.
  */
 public class LatLon {
     @SerializedName("Latitude")
@@ -13,9 +13,9 @@ public class LatLon {
     private final double lon;
 
     /**
-     * Creates a new latitude-longitude pair
-     * @param lat
-     * @param lon
+     * Creates a new latitude-longitude pair.
+     * @param lat the latitude component
+     * @param lon the longitude component
      */
     public LatLon(double lat, double lon) {
         this.lat = lat;
@@ -23,14 +23,16 @@ public class LatLon {
     }
 
     /**
-     * Returns the latitude component of the coordinates
+     * Returns the latitude component of the coordinates.
+     * @return the latitude component
      */
     public double lat() {
         return lat;
     }
 
     /**
-     * Returns the longitude component of the coordinates
+     * Returns the longitude component of the coordinates.
+     * @return the longitude component
      */
     public double lon() {
         return lon;

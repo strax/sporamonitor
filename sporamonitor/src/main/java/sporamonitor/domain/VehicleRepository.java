@@ -22,6 +22,10 @@ public class VehicleRepository implements Subject<Collection<Vehicle>> {
     private final List<Consumer<Collection<Vehicle>>> observers = new LinkedList<>();
     private final ExecutorService observerTaskExecutorService = ForkJoinPool.commonPool();
 
+    /**
+     * Creates a new vehicle repository.
+     * @param apiClient the HSL Live client to use
+     */
     public VehicleRepository(HSLLiveClient apiClient) {
         this.apiClient = apiClient;
     }
@@ -34,6 +38,7 @@ public class VehicleRepository implements Subject<Collection<Vehicle>> {
     }
 
     /**
+     * Returns the current vehicles in this repository.
      * @return a read-only collection of {@link Vehicle} objects
      */
     public Collection<Vehicle> vehicles() {

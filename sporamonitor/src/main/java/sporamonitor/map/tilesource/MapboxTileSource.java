@@ -17,6 +17,12 @@ public class MapboxTileSource extends AbstractTileSource {
     private final String apiKey;
     private final String username;
 
+    /**
+     * Creates a new Mapbox tile source.
+     * @param apiKey the API key to use to fetch tiles from
+     * @param username the Mapbox username to use
+     * @param styleName the Mapbox map style name to use
+     */
     public MapboxTileSource(String apiKey, String username, String styleName) {
         super(HOSTNAMES, 443);
         this.apiKey = apiKey;

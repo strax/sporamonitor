@@ -42,6 +42,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * A controller class that manages the map view of the application.
+ */
 public class MapController {
     private final static Logger LOGGER = LoggerFactory.getLogger(MapController.class);
 
@@ -55,6 +58,11 @@ public class MapController {
 
     private final VehicleRepository vehicleRepository;
 
+    /**
+     * Creates a new map controller object.
+     * @param frame the main AWT frame of the application
+     * @param vehicleRepository the vehicle repository object to listen on
+     */
     public MapController(Frame frame, VehicleRepository vehicleRepository) {
         this.vehicleRepository = vehicleRepository;
 

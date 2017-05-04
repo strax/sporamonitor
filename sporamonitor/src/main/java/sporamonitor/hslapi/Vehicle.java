@@ -25,6 +25,14 @@ public class Vehicle {
     @SerializedName("Delay")
     private final Double delay;
 
+    /**
+     * Creates a new vehicle object.
+     * @param code the code of the vehicle
+     * @param coordinates the coordinates of the vehicle
+     * @param bearing the bearing of the vehicle
+     * @param vehicleId the vehicle ID
+     * @param delay the delay of the vehicle
+     */
     public Vehicle(String code, LatLon coordinates, Double bearing, String vehicleId, Double delay) {
         this.code = code;
         this.coordinates = coordinates;
@@ -34,35 +42,40 @@ public class Vehicle {
     }
 
     /**
-     * Returns the code (line ID) of this vehicle
+     * Returns the code (line ID) of this vehicle.
+     * @return the code (line ID) of this vehicle
      */
     public String code() {
         return code;
     }
 
     /**
-     * Returns the current coordinates of the vehicle
+     * Returns the current coordinates of the vehicle.
+     * @return the coordinates of the vehicle
      */
     public LatLon coordinates() {
         return coordinates;
     }
 
     /**
-     * Returns the current bearing of the vehicle, if available
+     * Returns the current bearing of the vehicle, if available.
+     * @return the bearing of the vehicle
      */
     public Double bearing() {
         return bearing;
     }
 
     /**
-     * Returns the unique vehicle ID of this vehicle
+     * Returns the unique vehicle ID of this vehicle.
+     * @return the vehicle ID
      */
     public String vehicleId() {
         return vehicleId;
     }
 
     /**
-     * Returns the delay of the vehicle, if available
+     * Returns the delay of the vehicle, if available.
+     * @return the delay of the vehicle
      */
     public Double delay() {
         return delay;
@@ -81,7 +94,8 @@ public class Vehicle {
     }
 
     /**
-     * Returns the display name of the vehicle
+     * Returns the display name of the vehicle.
+     * @return the parsed code of the vehicle if the vehicle is a tram, the vehicle's code otherwise
      */
     public String displayName() {
         if (type().equals(TYPE_TRAM)) {

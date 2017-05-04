@@ -1,13 +1,13 @@
 package sporamonitor;
 
-import sporamonitor.hslapi.HSLLiveClient;
-import sporamonitor.hslapi.Vehicle;
 import sporamonitor.ui.RootController;
-import sporamonitor.ui.RootView;
-
-import java.util.List;
 
 public class Main {
+    /**
+     * Launches the application.
+     * @param args the command-line arguments of the application
+     * @throws Exception if a runtime error occurs
+     */
     public static void main(String[] args) throws Exception {
         new RootController();
     }

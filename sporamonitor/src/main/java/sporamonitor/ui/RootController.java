@@ -8,9 +8,15 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * The topmost (root) controller of the application.
+ */
 public class RootController {
     private final MapController mapController;
 
+    /**
+     * Creates a new root controller object.
+     */
     public RootController() {
         Frame frame = new Frame("Sporamonitor");
         VehicleRepository vehicleRepository = new VehicleRepository(new HSLLiveClient());
