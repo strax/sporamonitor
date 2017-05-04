@@ -21,3 +21,5 @@ ja jossa
 ## Luokkakaavio
 
 ![Luokkakaavio](luokkakaavio.png)
+
+Sovelluksen rakenne muodostuu kahdesta osasta: HSL:n Live-palvelun rajapintakirjastosta sekä itse bisneslogiikasta, joka on rakennettu Model-View-Controller (MVC) - arkkitehtuurin mukaisesti. Sovelluksen mallitasolla sijaitseva `VehicleRepository` kutsuu rajapintaa `HSLClient`-luokan kautta säännöllisin väliajoin ja ilmoittaa kuuntelijoillensa tilan muuttuneen. Näkymataso muodostuu käsittelijä (controller) -hierarkiasta; sovellus luo käynnistyessään RootController-olion, joka puolestaan luo malliolion sekä karttakäsittelijän (`MapController`). Karttakäsittelijä ottaa parametreinaan malliolion ja asettaa itsensä kuuntelemaan sovelluksen tilan muutoksia piirtäen kartan uudelleen raitiovaunujen sijaintien päivittyessä.
