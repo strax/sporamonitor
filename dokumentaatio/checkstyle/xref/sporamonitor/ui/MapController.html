@@ -131,7 +131,7 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> updateMarkerLayer(GroupLayer groupLayer) {
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         LOGGER.info(<span class="jxr_string">"Redrawing map"</span>);
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         groupLayer.layers.clear();
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         vehicleRepository.vehicles().forEach(vehicle -&gt; {
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         vehicleRepository.vehicles().stream().filter(vehicle -&gt; vehicle.type().equals(Vehicle.TYPE_TRAM)).forEach(vehicle -&gt; {
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>             LatLong coordinates = <strong class="jxr_keyword">new</strong> LatLong(vehicle.coordinates().lat(), vehicle.coordinates().lon());
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>             <a href="../../sporamonitor/ui/VehicleMarker.html">VehicleMarker</a> marker = <strong class="jxr_keyword">new</strong> <a href="../../sporamonitor/ui/VehicleMarker.html">VehicleMarker</a>(coordinates, vehicle.displayName(), GRAPHIC_FACTORY);
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>             groupLayer.layers.add(marker);
